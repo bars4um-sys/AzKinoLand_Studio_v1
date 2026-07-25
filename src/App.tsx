@@ -1,23 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {
-  Play,
-  Pause,
-  X,
-  Check,
-  Volume2,
-  VolumeX,
-  Eye,
-  Film,
-  Camera,
-  Clapperboard,
-  Sparkles,
-  ChevronRight,
-  ArrowUpRight,
-  Award,
-  BookOpen,
-  UserCheck,
-  Send
-} from 'lucide-react';
+import { useState } from 'react';
+import { Play, Check, Eye, X, Clapperboard } from 'lucide-react';
+import { CursorSpotlight } from './components/CursorSpotlight.tsx';
+import { TimecodeWidget } from './components/TimecodeWidget.tsx';
+import { TrailerModal } from './components/TrailerModal.tsx';
+import { EnrollModal } from './components/EnrollModal.tsx';
 
 interface ProgramModule {
   id: string;
@@ -29,7 +15,6 @@ interface ProgramModule {
   duration: string;
   topics: string[];
   image: string;
-  overlayType: 'grid' | 'golden' | 'light' | 'focus';
 }
 
 const PROGRAM_MODULES: ProgramModule[] = [
@@ -47,8 +32,7 @@ const PROGRAM_MODULES: ProgramModule[] = [
       'Динамика симметрии и хаоса',
       'Оптические иллюзии и работа с объективами'
     ],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCK-EMNHHnIVPlaX8up1Ri9TFWqmr-Q98iqViBiC9OJkn4O58YuccVSYIgSBeR0qHk6YDuERnaTjqmPp9BTOM6_I5q5yd2LdiJepJv5DTw4q36hR-ywX_OYeIewkx4iILisyXP9N24d92b2gAHRgF7CpeROEvNVHSnQlHhlC2CA5mRxr9n2cNSHLSYsOYREAgS6rn-VH-eUMU2hxkDMqttXoZ3X7RBRpkhzleilr-WceEyOZUpuPx9fxVqefCnmp14BCEWp4n2qF2gq',
-    overlayType: 'golden'
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCK-EMNHHnIVPlaX8up1Ri9TFWqmr-Q98iqViBiC9OJkn4O58YuccVSYIgSBeR0qHk6YDuERnaTjqmPp9BTOM6_I5q5yd2LdiJepJv5DTw4q36hR-ywX_OYeIewkx4iILisyXP9N24d92b2gAHRgF7CpeROEvNVHSnQlHhlC2CA5mRxr9n2cNSHLSYsOYREAgS6rn-VH-eUMU2hxkDMqttXoZ3X7RBRpkhzleilr-WceEyOZUpuPx9fxVqefCnmp14BCEWp4n2qF2gq'
   },
   {
     id: 'mod-2',
@@ -64,8 +48,7 @@ const PROGRAM_MODULES: ProgramModule[] = [
       'Естественный свет и магия "золотого часа"',
       'Цветовая палитра кадра (Color Grading как драматургия)'
     ],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCbfhsm4bkY631YCANMbRx0HRHfXvzTLVQ9ElmfhEmtyM7NJnqgyO0WiY3GX9juLJuQAbXGS8gxfor9iICZJ20z6JxWqyl-8H3I10lv9JxKHSf0Btc3BtJo6BiuRzlJ3pgLOWeLNnCrKF9s_TeH9438uF-MIosjwFoqi3TkYaQi7rDb99Y5ZGTC13pjJg5_IJ7R-G5NxEWiHkWOkK5MZ5iv2aW9mNdxBg1xzJpRu7Zc80HNxLFVvO-jh14xzbVJmidOAD8IG0s9nEXT',
-    overlayType: 'light'
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCbfhsm4bkY631YCANMbRx0HRHfXvzTLVQ9ElmfhEmtyM7NJnqgyO0WiY3GX9juLJuQAbXGS8gxfor9iICZJ20z6JxWqyl-8H3I10lv9JxKHSf0Btc3BtJo6BiuRzlJ3pgLOWeLNnCrKF9s_TeH9438uF-MIosjwFoqi3TkYaQi7rDb99Y5ZGTC13pjJg5_IJ7R-G5NxEWiHkWOkK5MZ5iv2aW9mNdxBg1xzJpRu7Zc80HNxLFVvO-jh14xzbVJmidOAD8IG0s9nEXT'
   },
   {
     id: 'mod-3',
@@ -81,8 +64,7 @@ const PROGRAM_MODULES: ProgramModule[] = [
       'Ассоциативный и параллельный монтаж',
       'Работа со временем: замедление, ускорение и пауза'
     ],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAG18VLes9zxnSXa-XBiswyP13HPWma5sGr_iz7w7UKqBieOicR1a2NBjSyp7UICupJYeTcsPkJeQed3IHbyAluSIoUYC0wlyhuFo6n6f39N8M-7n03P6APPXQYJtCF6q2YvF3A5Oyq3melDQV44FcQOa_vwR4HWoQqYHZZc-G7QjEVLEAtSM8hhClKW1E0qq1Ke4BxA4hEHJN0fOR-dKy9-hq2E4w858_eA9TzBAnlr42Bb3R_814K6OamQZvm08NNmX-JnMbtN4Is',
-    overlayType: 'grid'
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAG18VLes9zxnSXa-XBiswyP13HPWma5sGr_iz7w7UKqBieOicR1a2NBjSyp7UICupJYeTcsPkJeQed3IHbyAluSIoUYC0wlyhuFo6n6f39N8M-7n03P6APPXQYJtCF6q2YvF3A5Oyq3melDQV44FcQOa_vwR4HWoQqYHZZc-G7QjEVLEAtSM8hhClKW1E0qq1Ke4BxA4hEHJN0fOR-dKy9-hq2E4w858_eA9TzBAnlr42Bb3R_814K6OamQZvm08NNmX-JnMbtN4Is'
   },
   {
     id: 'mod-4',
@@ -98,8 +80,7 @@ const PROGRAM_MODULES: ProgramModule[] = [
       'Драматургия паузы и тишины',
       'Озвучивание деталей и фактуры предметов'
     ],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCzLmFkmXF86scfa1iiUttDId-TP7XuT6L1OakmMUI8ockcaTsKKZ31mvbXj68BXZ2f7UzaZHFli8pfVzre1PCjpPo-I-49nxG7lwzoW2PsNZSX0WkHvzTLmoutkEtHaoZtoZL62DGVd8pd14YfdTMidXo840yWG2j1u_8o3axIuIO6lXU3fa79_C2KNDkC9NrRz3HaEOlGs29bmWRGGCDaZWMe_EETZxZxzFRNxiC9BOTtZ4giSzTpgd5E00NZQdRIwYf-aI2D0kEQ',
-    overlayType: 'focus'
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCzLmFkmXF86scfa1iiUttDId-TP7XuT6L1OakmMUI8ockcaTsKKZ31mvbXj68BXZ2f7UzaZHFli8pfVzre1PCjpPo-I-49nxG7lwzoW2PsNZSX0WkHvzTLmoutkEtHaoZtoZL62DGVd8pd14YfdTMidXo840yWG2j1u_8o3axIuIO6lXU3fa79_C2KNDkC9NrRz3HaEOlGs29bmWRGGCDaZWMe_EETZxZxzFRNxiC9BOTtZ4giSzTpgd5E00NZQdRIwYf-aI2D0kEQ'
   }
 ];
 
@@ -137,7 +118,7 @@ const REVIEWS = [
   },
   {
     name: 'Артем Краснов',
-    occupation: 'Видеограф & Режиссер роликoв',
+    occupation: 'Видеограф & Режиссер роликов',
     text: 'Потрясающая атмосфера и глубина подачи. Без лишней "воды", только чистая теория визуального языка и фундаментальный анализ классических лент.',
     rating: 5,
     tag: 'Выпуск 2024'
@@ -199,14 +180,6 @@ const PLANS = [
 ];
 
 export default function App() {
-  // Cursor Position State
-  const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
-  const [isHovering, setIsHovering] = useState(false);
-
-  // Timecode State
-  const [timecode, setTimecode] = useState('00:00:00:00');
-  const [scrollTimecode, setScrollTimecode] = useState('00:00:00');
-
   // Modals & Active States
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
   const [isEnrollOpen, setIsEnrollOpen] = useState(false);
@@ -214,120 +187,27 @@ export default function App() {
   const [activeModuleId, setActiveModuleId] = useState('mod-1');
   const [isOverlayEnabled, setIsOverlayEnabled] = useState(true);
 
-  // Trailer Player Controls
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
-
-  // Form State
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', comment: '' });
-
   // Mobile Nav Toggle
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Mouse Move tracking for spotlight and custom cursor
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Timecode loop simulating cinematic timer
-  useEffect(() => {
-    let animId: number;
-    const updateTimer = () => {
-      const now = new Date();
-      const h = String(now.getHours()).padStart(2, '0');
-      const m = String(now.getMinutes()).padStart(2, '0');
-      const s = String(now.getSeconds()).padStart(2, '0');
-      const ms = String(Math.floor(now.getMilliseconds() / 40)).padStart(2, '0');
-      setTimecode(`${h}:${m}:${s}:${ms}`);
-      animId = requestAnimationFrame(updateTimer);
-    };
-    animId = requestAnimationFrame(updateTimer);
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
-  // Scroll timecode tracking scroll progress
-  useEffect(() => {
-    const handleScroll = () => {
-      const h = document.documentElement;
-      const b = document.body;
-      const st = 'scrollTop';
-      const sh = 'scrollHeight';
-      const percent = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight || 1);
-      
-      const totalSeconds = percent * 5400; // 90 min film length simulation
-      const hrs = Math.floor(totalSeconds / 3600);
-      const mins = Math.floor((totalSeconds % 3600) / 60);
-      const secs = Math.floor(totalSeconds % 60);
-
-      setScrollTimecode(
-        `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
-      );
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const activeModule = PROGRAM_MODULES.find(m => m.id === activeModuleId) || PROGRAM_MODULES[0];
+  const activeModule = PROGRAM_MODULES.find((m) => m.id === activeModuleId) || PROGRAM_MODULES[0];
 
   const handleEnrollClick = (planId?: string) => {
     if (planId) setSelectedPlan(planId);
     setIsEnrollOpen(true);
-    setFormSubmitted(false);
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
   };
 
   return (
-    <div 
-      className={`min-h-screen bg-[#0a0a0a] text-[#f5f0e8] relative selection:bg-[#c9a84c] selection:text-[#0a0a0a] ${isHovering ? 'cursor-none' : ''}`}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-    >
+    <div className="min-h-screen bg-[#0a0a0a] text-[#f5f0e8] relative selection:bg-[#c9a84c] selection:text-[#0a0a0a]">
       {/* Global Grain and Vignette */}
       <div className="grain-overlay" />
       <div className="vignette-global" />
 
-      {/* Custom Aperture Cursor */}
-      <div
-        className={`fixed pointer-events-none z-[10000] border border-[#c9a84c] rounded-full transition-all duration-200 ease-out flex items-center justify-center -translate-x-1/2 -translate-y-1/2 ${
-          isHovering ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{
-          left: `${cursorPos.x}px`,
-          top: `${cursorPos.y}px`,
-          width: '32px',
-          height: '32px',
-          backgroundColor: 'rgba(201, 168, 76, 0.05)'
-        }}
-      >
-        <div className="w-1 h-1 bg-[#c9a84c] rounded-full" />
-      </div>
+      {/* Cursor effects - isolated component, no re-renders of App */}
+      <CursorSpotlight />
 
-      {/* Global Cursor Light Spotlight */}
-      <div
-        className="pointer-events-none fixed inset-0 z-10 transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(circle 320px at ${cursorPos.x}px ${cursorPos.y}px, rgba(201, 168, 76, 0.12) 0%, rgba(10, 10, 10, 0) 100%)`
-        }}
-      />
-
-      {/* Scroll & Film Timecode Floating Widget */}
-      <div className="fixed bottom-8 right-[5vw] z-[5001] font-mono-subtitle text-[#c9a84c] text-[12px] tracking-[0.2em] bg-[#0a0a0a]/80 backdrop-blur-md px-4 py-2 border border-[#f5f0e8]/10 hidden sm:flex items-center gap-3">
-        <span className="inline-block w-2 h-2 rounded-full bg-[#e63946] animate-pulse" />
-        <span>REC {timecode}</span>
-        <span className="text-[#f5f0e8]/30">|</span>
-        <span className="text-[#f5f0e8]/70">FRAME: {scrollTimecode}</span>
-      </div>
+      {/* Scroll & Film Timecode Widget - isolated component */}
+      <TimecodeWidget />
 
       {/* Navigation Bar */}
       <nav className="fixed top-0 w-full z-[6000] bg-[#0a0a0a]/80 backdrop-blur-md border-b border-[#f5f0e8]/20 flex justify-between items-center px-[5vw] py-5">
@@ -363,6 +243,8 @@ export default function App() {
           {/* Mobile Menu Icon */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+            aria-expanded={mobileMenuOpen}
             className="md:hidden text-[#f5f0e8] p-2 focus:outline-none"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Clapperboard className="w-6 h-6 text-[#c9a84c]" />}
@@ -375,6 +257,7 @@ export default function App() {
         <div className="fixed inset-0 z-[5999] bg-[#0a0a0a]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden px-[5vw]">
           <button
             onClick={() => setMobileMenuOpen(false)}
+            aria-label="Закрыть меню"
             className="absolute top-6 right-[5vw] text-[#f5f0e8] p-2"
           >
             <X className="w-8 h-8" />
@@ -439,7 +322,7 @@ export default function App() {
           </div>
 
           <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-8 text-[#f5f0e8] leading-tight">
-            АЗБУКА КИНO
+            АЗБУКА КИНО
           </h1>
 
           <p className="font-mono-subtitle text-xs sm:text-sm md:text-base max-w-2xl mx-auto mb-12 opacity-85 leading-relaxed text-[#d0c5b2]">
@@ -472,7 +355,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Problem & Solution Section ("Когда кино становится шумом") */}
+      {/* Problem & Solution Section */}
       <section className="relative py-28 px-[5vw] bg-[#131313]">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start max-w-7xl mx-auto">
           {/* Sticky Left Column */}
@@ -525,7 +408,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Who Is It For Section ("Casting Call / Для кого этот путь") */}
+      {/* Who Is It For Section */}
       <section className="py-28 px-[5vw] bg-[#0a0a0a] overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
@@ -697,6 +580,8 @@ export default function App() {
                 <img
                   src={activeModule.image}
                   alt={activeModule.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-700"
                 />
 
@@ -721,6 +606,7 @@ export default function App() {
                 {/* Overlay Toggle Button */}
                 <button
                   onClick={() => setIsOverlayEnabled(!isOverlayEnabled)}
+                  aria-label={`Сетка кадра: ${isOverlayEnabled ? 'включена' : 'выключена'}`}
                   className="absolute bottom-4 right-4 bg-[#0a0a0a]/80 backdrop-blur-md border border-[#c9a84c]/50 text-[#c9a84c] font-mono-subtitle text-[10px] px-3 py-1.5 flex items-center gap-2 hover:bg-[#c9a84c] hover:text-[#0a0a0a] transition-colors cursor-pointer"
                 >
                   <Eye className="w-3.5 h-3.5" />
@@ -736,7 +622,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Authors Section ("Авторы и преподаватели") */}
+      {/* Authors Section */}
       <section id="authors" className="py-28 px-[5vw] bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
@@ -758,6 +644,8 @@ export default function App() {
                   <img
                     src={author.photo}
                     alt={author.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover grayscale group-hover:scale-105 transition-transform duration-700 opacity-90"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
@@ -825,7 +713,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Plans & Pricing Section ("Тарифы") */}
+      {/* Plans & Pricing Section */}
       <section id="plans" className="py-28 px-[5vw] bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
@@ -932,194 +820,22 @@ export default function App() {
         </div>
 
         <div className="font-mono-subtitle text-[11px] text-[#f5f0e8]/40 text-center md:text-right leading-relaxed">
-          © 1960-2026 AZBUKA KINO. ALL RIGHTS RESERVED.
+          © {new Date().getFullYear()} AZBUKA KINO. ALL RIGHTS RESERVED.
           <br />
           CINEMATIC MINIMALISM REGIME.
         </div>
       </footer>
 
       {/* Interactive Trailer Modal */}
-      {isTrailerOpen && (
-        <div className="fixed inset-0 z-[10000] bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-8">
-          <div className="relative w-full max-w-5xl bg-[#0a0a0a] border border-[#c9a84c]/40 overflow-hidden shadow-2xl">
-            {/* Modal Header */}
-            <div className="flex justify-between items-center p-4 px-6 border-b border-[#f5f0e8]/10 bg-black">
-              <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#e63946] animate-ping" />
-                <span className="font-mono-subtitle text-xs text-[#c9a84c] tracking-widest">
-                  OFFICIAL CINEMATIC TRAILER // AZBUKA KINO
-                </span>
-              </div>
-              <button
-                onClick={() => setIsTrailerOpen(false)}
-                className="text-[#f5f0e8]/70 hover:text-[#c9a84c] transition-colors p-1 cursor-pointer"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-
-            {/* Video Simulation Canvas / Video Player */}
-            <div className="relative aspect-video bg-black flex items-center justify-center overflow-hidden">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK-EMNHHnIVPlaX8up1Ri9TFWqmr-Q98iqViBiC9OJkn4O58YuccVSYIgSBeR0qHk6YDuERnaTjqmPp9BTOM6_I5q5yd2LdiJepJv5DTw4q36hR-ywX_OYeIewkx4iILisyXP9N24d92b2gAHRgF7CpeROEvNVHSnQlHhlC2CA5mRxr9n2cNSHLSYsOYREAgS6rn-VH-eUMU2hxkDMqttXoZ3X7RBRpkhzleilr-WceEyOZUpuPx9fxVqefCnmp14BCEWp4n2qF2gq"
-                alt="Trailer Frame"
-                className={`w-full h-full object-cover transition-opacity duration-500 ${isPlaying ? 'opacity-70' : 'opacity-40 grayscale'}`}
-              />
-
-              {/* Subtitles Overlay */}
-              <div className="absolute bottom-16 inset-x-8 text-center pointer-events-none">
-                <p className="font-mono-subtitle text-sm sm:text-lg text-[#f5f0e8] bg-black/80 inline-block px-4 py-2 border border-[#c9a84c]/30">
-                  «Мы не просто смотрим кадр. Мы проживаем его светотень и тишину.»
-                </p>
-              </div>
-
-              {/* Central Play/Pause button */}
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-[#c9a84c]/90 text-[#0a0a0a] flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-lg"
-              >
-                {isPlaying ? <Pause className="w-8 h-8 fill-current" /> : <Play className="w-8 h-8 fill-current ml-1" />}
-              </button>
-
-              <div className="scanline" />
-            </div>
-
-            {/* Video Player Footer Controls */}
-            <div className="p-4 px-6 bg-black flex justify-between items-center border-t border-[#f5f0e8]/10 text-xs font-mono-subtitle text-[#c9a84c]">
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="hover:text-[#f5f0e8] transition-colors cursor-pointer"
-                >
-                  {isPlaying ? 'PAUSE' : 'PLAY'}
-                </button>
-                <button
-                  onClick={() => setIsMuted(!isMuted)}
-                  className="hover:text-[#f5f0e8] transition-colors cursor-pointer flex items-center gap-1.5"
-                >
-                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-                  <span>{isMuted ? 'MUTED' : 'AUDIO ACTIVE'}</span>
-                </button>
-              </div>
-
-              <div>
-                <span>01:14 / 02:45</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <TrailerModal isOpen={isTrailerOpen} onClose={() => setIsTrailerOpen(false)} />
 
       {/* Enrollment Modal */}
-      {isEnrollOpen && (
-        <div className="fixed inset-0 z-[10000] bg-black/90 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-          <div className="relative w-full max-w-lg bg-[#131313] border border-[#c9a84c] p-8 sm:p-10 my-auto shadow-2xl">
-            <button
-              onClick={() => setIsEnrollOpen(false)}
-              className="absolute top-6 right-6 text-[#f5f0e8]/60 hover:text-[#c9a84c] transition-colors cursor-pointer"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            {!formSubmitted ? (
-              <>
-                <span className="font-mono-subtitle text-[11px] text-[#c9a84c] uppercase tracking-[0.2em] block mb-2">
-                  ЗАПИСЬ НА КУРС «АЗБУКА КИНО»
-                </span>
-
-                <h3 className="font-display text-3xl text-[#f5f0e8] mb-6">
-                  Заполните Анкету
-                </h3>
-
-                <form onSubmit={handleFormSubmit} className="space-y-5">
-                  <div>
-                    <label className="font-mono-subtitle text-[11px] text-[#d0c5b2] block mb-1">
-                      ВАШЕ ИМЯ *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Александр Власов"
-                      value={formData.name}
-                      onChange={e => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-[#0a0a0a] border border-[#f5f0e8]/20 focus:border-[#c9a84c] text-[#f5f0e8] p-3 text-sm focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="font-mono-subtitle text-[11px] text-[#d0c5b2] block mb-1">
-                      EMAIL *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="cinema@azbukakino.ru"
-                      value={formData.email}
-                      onChange={e => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-[#0a0a0a] border border-[#f5f0e8]/20 focus:border-[#c9a84c] text-[#f5f0e8] p-3 text-sm focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="font-mono-subtitle text-[11px] text-[#d0c5b2] block mb-1">
-                      ТЕЛЕФОН / TELEGRAM *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="+7 (999) 000-00-00"
-                      value={formData.phone}
-                      onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-[#0a0a0a] border border-[#f5f0e8]/20 focus:border-[#c9a84c] text-[#f5f0e8] p-3 text-sm focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="font-mono-subtitle text-[11px] text-[#d0c5b2] block mb-1">
-                      ВЫБРАННЫЙ ТАРИФ
-                    </label>
-                    <select
-                      value={selectedPlan}
-                      onChange={e => setSelectedPlan(e.target.value)}
-                      className="w-full bg-[#0a0a0a] border border-[#f5f0e8]/20 focus:border-[#c9a84c] text-[#c9a84c] p-3 text-sm focus:outline-none"
-                    >
-                      <option value="plan-basic">БАЗОВЫЙ (24 900 ₽)</option>
-                      <option value="plan-pro">ПРОДВИНУТЫЙ (39 900 ₽)</option>
-                      <option value="plan-vip">НАСТАВНИЧЕСТВО (79 900 ₽)</option>
-                    </select>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-[#c9a84c] text-[#0a0a0a] font-mono-subtitle text-xs tracking-[0.2em] py-4 uppercase font-bold hover:bg-[#f5f0e8] transition-colors mt-4 cursor-pointer flex items-center justify-center gap-2"
-                  >
-                    <Send className="w-4 h-4" />
-                    ПОДТВЕРДИТЬ ЗАЯВКУ
-                  </button>
-                </form>
-              </>
-            ) : (
-              <div className="text-center py-8 space-y-4">
-                <div className="w-16 h-16 bg-[#c9a84c]/20 border border-[#c9a84c] rounded-full flex items-center justify-center mx-auto text-[#c9a84c]">
-                  <Check className="w-8 h-8" />
-                </div>
-                <h3 className="font-display text-3xl text-[#f5f0e8]">
-                  Заявка Принята
-                </h3>
-                <p className="font-sans text-sm text-[#d0c5b2] leading-relaxed">
-                  Спасибо, {formData.name || 'друг'}! Наш куратор свяжется с вами в Telegram или по указанному телефону в течение 30 минут.
-                </p>
-                <button
-                  onClick={() => setIsEnrollOpen(false)}
-                  className="bg-[#c9a84c] text-[#0a0a0a] font-mono-subtitle text-xs tracking-[0.2em] px-8 py-3 uppercase font-semibold hover:bg-[#f5f0e8] transition-colors mt-4 cursor-pointer"
-                >
-                  ЗАКРЫТЬ
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      <EnrollModal
+        isOpen={isEnrollOpen}
+        onClose={() => setIsEnrollOpen(false)}
+        selectedPlan={selectedPlan}
+        onSelectPlan={setSelectedPlan}
+      />
     </div>
   );
 }
