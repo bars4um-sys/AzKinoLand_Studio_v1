@@ -1,0 +1,6 @@
+{
+  "name": "AZBUKA KINO",
+  "description": "Платформа курса кинематографического минимализма «Азбука Кино». Уроки, разбор кадров, программа, авторы и тарифы.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
