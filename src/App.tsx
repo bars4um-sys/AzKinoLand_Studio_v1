@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Play, Check, Eye, X, Clapperboard } from 'lucide-react';
-import { CursorSpotlight } from './components/CursorSpotlight.tsx';
 import { TimecodeWidget } from './components/TimecodeWidget.tsx';
 import { TrailerModal } from './components/TrailerModal.tsx';
 import { EnrollModal } from './components/EnrollModal.tsx';
@@ -199,12 +198,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-[#f5f0e8] relative selection:bg-[#c9a84c] selection:text-[#0a0a0a]">
-      {/* Global Grain and Vignette */}
-      <div className="grain-overlay" />
+      {/* Global Vignette */}
       <div className="vignette-global" />
-
-      {/* Cursor effects - isolated component, no re-renders of App */}
-      <CursorSpotlight />
 
       {/* Scroll & Film Timecode Widget - isolated component */}
       <TimecodeWidget />
@@ -389,7 +384,6 @@ export default function App() {
               <p className="font-sans text-sm md:text-base text-[#d0c5b2]/70 leading-relaxed">
                 Большинство из них забываются через 5 секунд. Мы превратили искусство в фастфуд, теряя глубину кадра и намерение режиссера.
               </p>
-              <div className="scanline" />
             </div>
 
             {/* Scene 02 */}

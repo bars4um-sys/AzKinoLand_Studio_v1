@@ -76,8 +76,6 @@ export function TrailerModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
               <Play className="w-8 h-8 fill-current ml-1" />
             )}
           </button>
-
-          <div className="scanline" />
         </div>
 
         <div className="p-4 px-6 bg-black flex justify-between items-center border-t border-[#f5f0e8]/10 text-xs font-mono-subtitle text-[#c9a84c]">

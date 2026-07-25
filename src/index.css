@@ -16,29 +16,6 @@
   }
 }
 
-/* Film Grain Overlay */
-.grain-overlay {
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAMPb42KjmZdrHCIc7hydSacj4NbTA-bsklLeh1XCcAEWACvvyHjbiwy8Dxd42-aiiK0Za2QgJhtyrKJhu4qRpv3Zr1FuCaejL-HHMuFU1gIkBEeDIfslz1QCQbd85ncF0jgsev9fcl_OnKJ1a-dIXBPRAshZOycyszr1tlFyj0l4z4tz3IR8eFA3FVERwO6rKd4FAILXy3P762xQZhnfpP3jxqT5ZZ7dBwFNE8HflJxO8OI_KNtdZA2DMAqOGEJgfBH2Gy1lE7UAbK');
-  animation: grain 0.8s steps(10) infinite;
-}
-
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-5%, -10%); }
-  30% { transform: translate(3%, -15%); }
-  50% { transform: translate(12%, 9%); }
-  70% { transform: translate(-9%, 4%); }
-  90% { transform: translate(2%, 11%); }
-}
-
 /* Global Vignette Effect */
 .vignette-global {
   position: fixed;
@@ -52,19 +29,6 @@
 .cinematic-frame {
   border-top: 1px solid rgba(245, 240, 232, 0.2);
   border-bottom: 1px solid rgba(245, 240, 232, 0.2);
-}
-
-.scanline {
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background: rgba(201, 168, 76, 0.15);
-  animation: scanline 8s linear infinite;
-}
-
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
 }
 
 /* Custom Scrollbar */
