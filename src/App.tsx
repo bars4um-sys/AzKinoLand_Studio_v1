@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, Check, Eye, X, Clapperboard } from 'lucide-react';
+import { Check, Eye, X, Clapperboard, Heart, MessageCircle, Share2 } from 'lucide-react';
 import { TimecodeWidget } from './components/TimecodeWidget.tsx';
 import { TrailerModal } from './components/TrailerModal.tsx';
 import { EnrollModal } from './components/EnrollModal.tsx';
@@ -128,6 +128,46 @@ const REVIEWS = [
     text: 'Настоящее эстетическое наслаждение. Разбор светотени и монтажных пауз помог мне написать серию статей для киножурнала.',
     rating: 5,
     tag: 'Выпуск 2023'
+  }
+];
+
+const POSTS = [
+  {
+    id: 'post-1',
+    category: 'Кумиры',
+    categoryTag: 'PRIMARY',
+    title: 'Мастера кадра: Ингмар Бергман',
+    excerpt: 'Исследуем, как шведский мастер использовал тени и психологическую глубину для создания новой формы визуального повествования...',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBNuOu99Q3o6vcCM2XhfctHcdD9Sh6Ne8gF1BFQcxb5ky1qKdZglpFoSSuK_SbafcK0CpfjTDKSNJQTCzvNMBbC9-Fh9Ax-bo-TS7ucqCYzU-r2xyzwnzFPPzgUf1H1MGQTppoBZhEHzmEZsqYqqPE6hooJ2XsUQxNcame-ZNZhCnWyk-YYqk9ZZFdzeLn558sGtX_zhl4jd3EVQw6ZAfqBBmvyjP26Nw2ven_8uc9WXycW72Ff9mAkLQ',
+    likes: '12.4K',
+    comments: '342',
+    timeAgo: '2h ago',
+    aspectRatio: '4/5'
+  },
+  {
+    id: 'post-2',
+    category: 'Жанры',
+    categoryTag: 'SECONDARY',
+    title: 'Неонуар: Эстетика ночного города',
+    excerpt: 'Разбор того, как яркие неоновые огни и дождливые улицы стали современным эквивалентом классической черно-белой игры света и тени.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDoEZjpZwWhmiFtQlPu7ufno-UFMzEXhVZVQc0VhAocJzvQXXg9uZzvyUYhn7nARnPUpmhMk1ngds3FM0lRmipXvs6kDj6Ej4t0e2GMWDBRapA95qYV1YTYdnROXr268FOC2vsex9AQBwPWWWTH6vF2F8JtnFaSo4cg_saOCQFlS93W_ncdaO4tS4S7mXxxpdIZcMXoUe1sCGgPPjh46C8HPYw4AAgIr44hXZxLtN4aqEFpQnW4G5F7eQ',
+    likes: '8.2K',
+    comments: '156',
+    timeAgo: '5h ago',
+    aspectRatio: '16/9',
+    tags: ['Lighting', 'Cinematography', 'Cyberpunk']
+  },
+  {
+    id: 'post-3',
+    category: 'Фишки',
+    categoryTag: 'ACCENT',
+    title: 'Техника длинного кадра у Тарковского',
+    excerpt: 'План-сéквенс как медитация. Почему режиссер выбирал минимум склеек, а максимум присутствия.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAG18VLes9zxnSXa-XBiswyP13HPWma5sGr_iz7w7UKqBieOicR1a2NBjSyp7UICupJYeTcsPkJeQed3IHbyAluSIoUYC0wlyhuFo6n6f39N8M-7n03P6APPPXQYJtCF6q2YvF3A5Oyq3melDQV44FcQOa_vwR4HWoQqYHZZc-G7QjEVLEAtSM8hhClKW1E0qq1Ke4BxA4hEHJN0fOR-dKy9-hq2E4w858_eA9TzBAnlr42Bb3R_814K6OamQZvm08NNmX-JnMbtN4Is',
+    likes: '5.8K',
+    comments: '89',
+    timeAgo: '1d ago',
+    aspectRatio: '16/9'
   }
 ];
 
@@ -297,56 +337,110 @@ export default function App() {
         </div>
       )}
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-[5vw] pt-28 pb-16 overflow-hidden">
-        {/* Background Film Image */}
-        <div className="absolute inset-0 z-0">
-          <div
-            className="w-full h-full bg-cover bg-center opacity-35 grayscale scale-105 transition-transform duration-1000 ease-out"
-            style={{
-              backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuCK-EMNHHnIVPlaX8up1Ri9TFWqmr-Q98iqViBiC9OJkn4O58YuccVSYIgSBeR0qHk6YDuERnaTjqmPp9BTOM6_I5q5yd2LdiJepJv5DTw4q36hR-ywX_OYeIewkx4iILisyXP9N24d92b2gAHRgF7CpeROEvNVHSnQlHhlC2CA5mRxr9n2cNSHLSYsOYREAgS6rn-VH-eUMU2hxkDMqttXoZ3X7RBRpkhzleilr-WceEyOZUpuPx9fxVqefCnmp14BCEWp4n2qF2gq')`
-            }}
+      {/* Hero & Cinematic Noir Channel Section */}
+      <section className="relative pt-24 pb-8 px-6">
+        {/* Cover Image */}
+        <div className="relative w-full aspect-[21/9] overflow-hidden mb-6">
+          <img 
+            className="w-full h-full object-cover grayscale brightness-75 transition-transform duration-[20s] ease-linear hover:scale-110" 
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUDv6ETeQ09om8Gum6cG_G_-H-5DhBJw7toID75StNykI_sDSm2VnRpsrU719ia4SpiC2yzpUBMO6OOlnlOGXR9X8u9ENg_4U2_eUyIZpunx0XLBS4A9-bZPwtYU_jiISURyvvE0aUx0NkOGM8KsvZIKbATS72yV_BRai_XwGfohXP70FcDebh47op3cMykbwfWsGHeZfLOVlnIZNIA25BUJnaG9tRYQpXy1OqTE9m11HSaxnERsigTQ"
+            alt="Cinematic Cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/50 to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
         </div>
 
-        {/* Hero Content */}
-        <div className="relative z-20 text-center max-w-5xl mx-auto my-auto">
-          <div className="inline-block mb-6 px-4 py-1.5 border border-[#c9a84c]/40 bg-[#c9a84c]/10 text-[#c9a84c] font-mono-subtitle text-[11px] tracking-[0.25em] uppercase">
-            ОНЛАЙН-КУРС КИНЕМАТОГРАФИЧЕСКОГО АНАЛИЗА
-          </div>
-
-          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-8 text-[#f5f0e8] leading-tight">
-            АЗБУКА КИНО
-          </h1>
-
-          <p className="font-mono-subtitle text-xs sm:text-sm md:text-base max-w-2xl mx-auto mb-12 opacity-85 leading-relaxed text-[#d0c5b2]">
-            ИСКУССТВО ВИДЕТЬ. МАСТЕРСТВО РАССКАЗЫВАТЬ.
-            <br />
-            ПОГРУЖЕНИЕ В МИР КИНЕМАТОГРАФИЧЕСКОГО МИНИМАЛИЗМА.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
-            <a
-              href="#program"
-              className="w-full sm:w-auto bg-[#c9a84c] text-[#0a0a0a] font-mono-subtitle text-xs tracking-[0.2em] px-10 py-4 uppercase font-semibold hover:bg-[#f5f0e8] transition-colors duration-300 text-center"
+        {/* Profile Header */}
+        <div className="flex flex-col gap-4 max-w-3xl">
+          <div className="flex items-end justify-between">
+            <div className="w-24 h-24 border-4 border-[#0a0a0a] bg-surface rounded-none overflow-hidden shadow-2xl">
+              <img 
+                className="w-full h-full object-cover" 
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHXn_kcsbbDO2bMU5sGLK2N54rlEy1VOISGDcVYOt4jljazJvyP8PGpFhwKz7vdDviwqG_-rSmLlfb7oTAUw3uLwr7Ep0tDVH-7p1YqTCi9C3ONDI1Ua96VFLUhoZGSEoT296Pbk494ua-7UbhUEBv7D9sapY_qzlNak_wIeMeeaXaQqTXkMJdc-qkjEQndJfWF9NVV_GfFrXwSLCLNi5qj9Qj4CtwsaiG4s6YdcmrxLV6M9tgBDAQRw"
+                alt="Channel Avatar"
+              />
+            </div>
+            <button 
+              onClick={() => handleEnrollClick()}
+              className="bg-[#E11D48] text-[#0a0a0a] font-label-caps text-label-caps px-6 py-3 transition-all hover:brightness-110 active:scale-95 shadow-lg"
             >
-              СМОТРЕТЬ КУРС
-            </a>
-            <button
-              onClick={() => setIsTrailerOpen(true)}
-              className="w-full sm:w-auto border border-[#f5f0e8] text-[#f5f0e8] font-mono-subtitle text-xs tracking-[0.2em] px-10 py-4 uppercase font-semibold hover:bg-[#f5f0e8] hover:text-[#0a0a0a] transition-colors duration-300 flex items-center justify-center gap-3 cursor-pointer"
-            >
-              <Play className="w-4 h-4 fill-current" />
-              ТРЕЙЛЕР
+              ПОДПИСАТЬСЯ
             </button>
           </div>
+
+          <div className="flex flex-col gap-1">
+            <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Cinematic Noir</h1>
+            <p className="font-body-md text-body-md text-on-surface-variant max-w-xs opacity-80">
+              Auteur Cinema Channel. Исследуем эстетику нуара и авторского кино через объектив истории.
+            </p>
+            <div className="flex gap-4 mt-2 font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest opacity-60">
+              <span>1.2M Followers</span>
+              <span>428 Posts</span>
+            </div>
+          </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-60">
-          <span className="font-mono-subtitle text-[10px] tracking-[0.25em] text-[#c9a84c]">SCROLL TO BEGIN</span>
-          <div className="w-[1px] h-16 bg-gradient-to-b from-[#c9a84c] to-transparent animate-pulse" />
+        {/* Navigation Tabs */}
+        <nav className="mt-8 border-b border-outline-variant/10 overflow-x-auto flex gap-8">
+          <a className="font-label-caps text-label-caps py-4 text-secondary border-b-2 border-[#E11D48] uppercase" href="#posts">НОВОСТИ</a>
+          <a className="font-label-caps text-label-caps py-4 text-on-surface-variant/70 uppercase hover:text-on-surface transition-colors" href="#posts">ЖАНРЫ</a>
+          <a className="font-label-caps text-label-caps py-4 text-on-surface-variant/70 uppercase hover:text-on-surface transition-colors" href="#posts">КУМИРЫ</a>
+          <a className="font-label-caps text-label-caps py-4 text-on-surface-variant/70 uppercase hover:text-on-surface transition-colors" href="#posts">ФИШКИ</a>
+        </nav>
+      </section>
+
+      {/* Posts Feed Section */}
+      <section id="posts" className="relative py-8 px-6 max-w-3xl mx-auto">
+        <div className="flex flex-col gap-section-gap">
+          {POSTS.map((post, index) => (
+            <article key={post.id} className="group">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-0.5 h-4 bg-[#E11D48]"></div>
+                <span className="font-label-caps text-label-caps text-secondary uppercase">{post.category}</span>
+                <span className="font-label-mono text-label-mono text-on-surface-variant ml-auto opacity-50">{post.timeAgo}</span>
+              </div>
+
+              <div className="relative overflow-hidden border border-outline-variant/10">
+                <div style={{ aspectRatio: post.aspectRatio }} className="bg-surface-container overflow-hidden">
+                  <img 
+                    className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105" 
+                    src={post.image}
+                    alt={post.title}
+                  />
+                </div>
+
+                {index === 0 ? (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                    <h2 className="font-headline-sm text-headline-sm text-on-surface mb-2 leading-tight">{post.title}</h2>
+                    <p className="font-body-md text-body-md text-on-surface-variant line-clamp-2 opacity-90">{post.excerpt}</p>
+                  </div>
+                ) : (
+                  <div className="p-6 bg-surface-container-low">
+                    <h2 className="font-headline-sm text-headline-sm text-on-surface mb-3">{post.title}</h2>
+                    <p className="font-body-md text-body-md text-on-surface-variant opacity-80 mb-4">{post.excerpt}</p>
+                    {post.tags && (
+                      <div className="flex flex-wrap gap-2">
+                        {post.tags.map((tag) => (
+                          <span key={tag} className="font-label-mono text-[10px] border border-outline-variant/20 px-2 py-0.5 uppercase">{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-6 mt-4 border-t border-outline-variant/5 pt-4">
+                <button className="flex items-center gap-1.5 font-label-mono text-label-mono text-on-surface-variant hover:text-secondary transition-colors">
+                  <Heart className="w-4 h-4" /> {post.likes}
+                </button>
+                <button className="flex items-center gap-1.5 font-label-mono text-label-mono text-on-surface-variant hover:text-secondary transition-colors">
+                  <MessageCircle className="w-4 h-4" /> {post.comments}
+                </button>
+                <button className="flex items-center gap-1.5 font-label-mono text-label-mono text-on-surface-variant hover:text-secondary transition-colors ml-auto">
+                  <Share2 className="w-4 h-4" />
+                </button>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
