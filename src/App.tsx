@@ -123,7 +123,7 @@ const REVIEWS = [
     tag: 'Выпуск 2024'
   },
   {
-    name: 'Екатерина Орлова',
+    name: 'Ека��ерина Орлова',
     occupation: 'Кинокритик & Блогер',
     text: 'Настоящее эстетическое наслаждение. Разбор светотени и монтажных пауз помог мне написать серию статей для киножурнала.',
     rating: 5,
@@ -237,7 +237,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#f5f0e8] relative selection:bg-[#c9a84c] selection:text-[#0a0a0a]">
+    <div className="min-h-screen bg-background text-on-surface relative selection:bg-secondary selection:text-background">
       {/* Global Vignette */}
       <div className="vignette-global" />
 
@@ -245,23 +245,23 @@ export default function App() {
       <TimecodeWidget />
 
       {/* Navigation Bar */}
-      <nav className="fixed top-0 w-full z-[6000] bg-[#0a0a0a]/80 backdrop-blur-md border-b border-[#f5f0e8]/20 flex justify-between items-center px-[5vw] py-5">
-        <a href="#" className="font-display text-2xl md:text-3xl text-[#c9a84c] tracking-tighter hover:opacity-90 transition-opacity">
+      <nav className="fixed top-0 w-full z-[6000] bg-background/80 backdrop-blur-md border-b border-on-surface/20 flex justify-between items-center px-[5vw] py-5">
+        <a href="#" className="font-display text-2xl md:text-3xl text-secondary tracking-tighter hover:opacity-90 transition-opacity">
           AZBUKA KINO
         </a>
 
         {/* Desktop Links */}
         <div className="hidden md:flex gap-10 items-center">
-          <a href="#program" className="font-mono-subtitle text-[12px] tracking-[0.2em] text-[#c9a84c] border-b border-[#c9a84c] pb-1 hover:text-[#e6c364] transition-colors">
+          <a href="#program" className="font-mono-subtitle text-[12px] tracking-[0.2em] text-secondary border-b border-secondary pb-1 hover:opacity-80 transition-colors">
             ПРОГРАММА
           </a>
-          <a href="#authors" className="font-mono-subtitle text-[12px] tracking-[0.2em] text-[#f5f0e8] hover:text-[#c9a84c] transition-colors">
+          <a href="#authors" className="font-mono-subtitle text-[12px] tracking-[0.2em] text-on-surface hover:text-secondary transition-colors">
             АВТОРЫ
           </a>
-          <a href="#reviews" className="font-mono-subtitle text-[12px] tracking-[0.2em] text-[#f5f0e8] hover:text-[#c9a84c] transition-colors">
+          <a href="#reviews" className="font-mono-subtitle text-[12px] tracking-[0.2em] text-on-surface hover:text-secondary transition-colors">
             ОТЗЫВЫ
           </a>
-          <a href="#plans" className="font-mono-subtitle text-[12px] tracking-[0.2em] text-[#f5f0e8] hover:text-[#c9a84c] transition-colors">
+          <a href="#plans" className="font-mono-subtitle text-[12px] tracking-[0.2em] text-on-surface hover:text-secondary transition-colors">
             ТАРИФЫ
           </a>
         </div>
@@ -270,7 +270,7 @@ export default function App() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => handleEnrollClick()}
-            className="bg-[#c9a84c] text-[#0a0a0a] font-mono-subtitle text-[12px] tracking-[0.2em] px-6 py-2.5 hover:bg-[#f5f0e8] active:scale-95 transition-all duration-200 uppercase font-semibold cursor-pointer"
+            className="bg-secondary text-background font-mono-subtitle text-[12px] tracking-[0.2em] px-6 py-2.5 hover:opacity-90 active:scale-95 transition-all duration-200 uppercase font-semibold cursor-pointer"
           >
             ЗАПИСАТЬСЯ
           </button>
@@ -280,48 +280,48 @@ export default function App() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
             aria-expanded={mobileMenuOpen}
-            className="md:hidden text-[#f5f0e8] p-2 focus:outline-none"
+            className="md:hidden text-on-surface p-2 focus:outline-none"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Clapperboard className="w-6 h-6 text-[#c9a84c]" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Clapperboard className="w-6 h-6 text-secondary" />}
           </button>
         </div>
       </nav>
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[5999] bg-[#0a0a0a]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden px-[5vw]">
+        <div className="fixed inset-0 z-[5999] bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden px-[5vw]">
           <button
             onClick={() => setMobileMenuOpen(false)}
             aria-label="Закрыть меню"
-            className="absolute top-6 right-[5vw] text-[#f5f0e8] p-2"
+            className="absolute top-6 right-[5vw] text-on-surface p-2"
           >
             <X className="w-8 h-8" />
           </button>
           <a
             href="#program"
             onClick={() => setMobileMenuOpen(false)}
-            className="font-display text-3xl text-[#c9a84c] hover:underline"
+            className="font-display text-3xl text-secondary hover:underline"
           >
             ПРОГРАММА
           </a>
           <a
             href="#authors"
             onClick={() => setMobileMenuOpen(false)}
-            className="font-display text-3xl text-[#f5f0e8] hover:text-[#c9a84c]"
+            className="font-display text-3xl text-on-surface hover:text-secondary"
           >
             АВТОРЫ
           </a>
           <a
             href="#reviews"
             onClick={() => setMobileMenuOpen(false)}
-            className="font-display text-3xl text-[#f5f0e8] hover:text-[#c9a84c]"
+            className="font-display text-3xl text-on-surface hover:text-secondary"
           >
             ОТЗЫВЫ
           </a>
           <a
             href="#plans"
             onClick={() => setMobileMenuOpen(false)}
-            className="font-display text-3xl text-[#f5f0e8] hover:text-[#c9a84c]"
+            className="font-display text-3xl text-on-surface hover:text-secondary"
           >
             ТАРИФЫ
           </a>
@@ -330,7 +330,7 @@ export default function App() {
               setMobileMenuOpen(false);
               handleEnrollClick();
             }}
-            className="mt-4 bg-[#c9a84c] text-[#0a0a0a] font-mono-subtitle text-sm tracking-[0.2em] px-10 py-4 uppercase font-bold"
+            className="mt-4 bg-secondary text-background font-mono-subtitle text-sm tracking-[0.2em] px-10 py-4 uppercase font-bold"
           >
             ЗАПИСАТЬСЯ НА КУРС
           </button>
@@ -338,7 +338,7 @@ export default function App() {
       )}
 
       {/* Hero & Cinematic Noir Channel Section */}
-      <section className="relative pt-24 pb-8 px-6">
+      <section className="relative pt-24 pb-8 px-6 bg-background">
         {/* Cover Image */}
         <div className="relative w-full aspect-[21/9] overflow-hidden mb-6">
           <img 
@@ -346,13 +346,13 @@ export default function App() {
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUDv6ETeQ09om8Gum6cG_G_-H-5DhBJw7toID75StNykI_sDSm2VnRpsrU719ia4SpiC2yzpUBMO6OOlnlOGXR9X8u9ENg_4U2_eUyIZpunx0XLBS4A9-bZPwtYU_jiISURyvvE0aUx0NkOGM8KsvZIKbATS72yV_BRai_XwGfohXP70FcDebh47op3cMykbwfWsGHeZfLOVlnIZNIA25BUJnaG9tRYQpXy1OqTE9m11HSaxnERsigTQ"
             alt="Cinematic Cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
         </div>
 
         {/* Profile Header */}
         <div className="flex flex-col gap-4 max-w-3xl">
           <div className="flex items-end justify-between">
-            <div className="w-24 h-24 border-4 border-[#0a0a0a] bg-surface rounded-none overflow-hidden shadow-2xl">
+            <div className="w-24 h-24 border-4 border-background bg-surface-container rounded-none overflow-hidden shadow-2xl">
               <img 
                 className="w-full h-full object-cover" 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHXn_kcsbbDO2bMU5sGLK2N54rlEy1VOISGDcVYOt4jljazJvyP8PGpFhwKz7vdDviwqG_-rSmLlfb7oTAUw3uLwr7Ep0tDVH-7p1YqTCi9C3ONDI1Ua96VFLUhoZGSEoT296Pbk494ua-7UbhUEBv7D9sapY_qzlNak_wIeMeeaXaQqTXkMJdc-qkjEQndJfWF9NVV_GfFrXwSLCLNi5qj9Qj4CtwsaiG4s6YdcmrxLV6M9tgBDAQRw"
@@ -361,7 +361,7 @@ export default function App() {
             </div>
             <button 
               onClick={() => handleEnrollClick()}
-              className="bg-[#E11D48] text-[#0a0a0a] font-label-caps text-label-caps px-6 py-3 transition-all hover:brightness-110 active:scale-95 shadow-lg"
+              className="bg-secondary text-background font-label-caps text-label-caps px-6 py-3 transition-all hover:opacity-90 active:scale-95 shadow-lg"
             >
               ПОДПИСАТЬСЯ
             </button>
@@ -381,7 +381,7 @@ export default function App() {
 
         {/* Navigation Tabs */}
         <nav className="mt-8 border-b border-outline-variant/10 overflow-x-auto flex gap-8">
-          <a className="font-label-caps text-label-caps py-4 text-secondary border-b-2 border-[#E11D48] uppercase" href="#posts">НОВОСТИ</a>
+          <a className="font-label-caps text-label-caps py-4 text-secondary border-b-2 border-secondary uppercase" href="#posts">НОВОСТИ</a>
           <a className="font-label-caps text-label-caps py-4 text-on-surface-variant/70 uppercase hover:text-on-surface transition-colors" href="#posts">ЖАНРЫ</a>
           <a className="font-label-caps text-label-caps py-4 text-on-surface-variant/70 uppercase hover:text-on-surface transition-colors" href="#posts">КУМИРЫ</a>
           <a className="font-label-caps text-label-caps py-4 text-on-surface-variant/70 uppercase hover:text-on-surface transition-colors" href="#posts">ФИШКИ</a>
